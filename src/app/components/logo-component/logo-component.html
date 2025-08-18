@@ -1,0 +1,20 @@
+<div class="avatar-container" [style.width.px]="size" [style.height.px]="size">
+  @if(imageUrl && !imageLoadError) {
+    <img  
+      [src]="imageUrl" 
+      [alt]="fallbackText"
+      (error)="onImageError()"
+      (load)="onImageLoad()"
+      class="avatar-image"
+    />
+  }
+  @if (!imageUrl || imageLoadError) {
+  <div 
+    class="avatar-fallback"
+    [style.font-size.px]="size * 0.4"
+  >
+    {{ fallbackText }}
+  </div>
+  }
+
+</div>

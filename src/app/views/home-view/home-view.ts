@@ -4,10 +4,11 @@ import { faMoneyBillWave } from "@fortawesome/free-solid-svg-icons";
 import { ProductService } from "../../products/products";
 import { ProductServiceAdapter } from "../../products/products.service";
 import { toSignal } from '@angular/core/rxjs-interop';
+import { LogoComponent } from "../../components/logo-component/logo-component";
 
 @Component({
   selector: "app-home-view",
-  imports: [FontAwesomeModule],
+  imports: [FontAwesomeModule, LogoComponent],
   templateUrl: "./home-view.html",
   styleUrl: "./home-view.scss",
   providers: [{

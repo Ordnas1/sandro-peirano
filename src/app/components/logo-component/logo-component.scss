@@ -1,0 +1,27 @@
+.avatar-container {
+  display: inline-block;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #e0e0e0;
+  position: relative;
+}
+
+.avatar-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.avatar-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #9e9e9e;
+  color: white;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+  text-transform: uppercase;
+}

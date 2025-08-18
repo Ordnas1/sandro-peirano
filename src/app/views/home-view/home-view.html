@@ -14,7 +14,9 @@
             </tr>
             @for (product of products(); track product.id) {
                 <tr class="product-table__row">
-                    <td class="product-table__cell">{{ product.logoUrl }}</td>
+                    <td class="product-table__cell">
+                        <app-logo [imageUrl]="product.logoUrl"/>
+                    </td>
                     <td class="product-table__cell">{{ product.name }}</td>
                     <td class="product-table__cell">{{ product.description }}</td>
                     <td class="product-table__cell">{{ product.releaseDate }}</td>
