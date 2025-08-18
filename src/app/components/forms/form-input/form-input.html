@@ -1,0 +1,24 @@
+<div class="input-wrapper">
+    @if(label()) {
+        <label class="input-label" [htmlFor]="name()">
+            {{label()}}
+        </label>
+        
+    }
+    <input 
+        class="text-input" 
+        [id]="name()" 
+        [type]="type()"
+        [placeholder]="placeholder()"
+        [disabled]="disabled()"
+        (input)="onInput($event)"
+        (blur)="onBlur()"
+    />
+
+    @if (hasError()) {
+    <div class="error-message">
+     err
+    </div>
+  }
+
+</div>

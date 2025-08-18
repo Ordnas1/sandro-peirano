@@ -1,0 +1,57 @@
+<div class="add-form-container">
+    <h2>Formulario de registro</h2>
+    <form [formGroup]="productForm" class="add-form">
+        <div class="add-form__row">
+            <app-form-input 
+                formControlName="id" 
+                name="product-id" 
+                label="ID" 
+                class="add-form__input"
+                placeholder="ID"
+            />
+            <app-form-input 
+                formControlName="name" 
+                name="product-name" 
+                label="Nombre"
+                class="add-form__input"
+                placeholder="Tarjeta de crédito"
+            />
+        </div>
+        <div class="add-form__row">
+            <app-form-input
+                formControlName="description" 
+                name="product-description" 
+                label="Descripción" 
+                class="add-form__input"
+                placeholder="" 
+            />
+            <app-form-input 
+                formControlName="logo" 
+                name="product-logo" 
+                label="Logo" 
+                class="add-form__input"
+                placeholder=""
+            />
+        </div>
+        <div class="add-form__row">
+            <app-form-input
+                formControlName="releaseDate" 
+                name="product-release-date" 
+                label="Fecha de liberación" 
+                type="date"
+                class="add-form__input"
+            />
+            <app-form-input
+                formControlName="revisionDate" 
+                name="product-restructuring-date" 
+                label="Fecha de reestructuración" 
+                type="date"
+                class="add-form__input"
+            />
+        </div>
+    </form>
+    <div class="add-form__actions">
+        <button>Reiniciar</button>
+        <button>Enviar</button>
+    </div>
+</div>

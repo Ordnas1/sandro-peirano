@@ -1,0 +1,17 @@
+@use 'tokens/colors' as colors;
+@use 'tokens/breakpoints' as bp;
+
+.home-main {
+    background-color: colors.$grey-background;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    height: 100%;
+    flex: 1 1 auto;
+    padding-top: 5vh;
+
+    &__content {
+        width: bp.$lg;
+    }
+}

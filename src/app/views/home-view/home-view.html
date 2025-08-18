@@ -1,38 +1,34 @@
-<header class="home-header">
-     <h1 class="home-header__title">
-        <fa-icon [icon]="faMoneyBillWave" /> 
-        Banco de Prueba
-    </h1>
-</header>
-<main class="home-main">
-    <div class="home-main__content">
-        <app-search-bar (inputChange)="handleInputChange($event)"/>
-        <table class="product-table">
-            <tr class="product-table__header">
-                @for (header of tableHeaders; track $index) {
-                    <th class="product-table__header-cell">{{ header }}</th>
-                }
-            </tr>
-            @for (product of displayedProducts(); track product.id) {
-                <tr class="product-table__row">
-                    <td class="product-table__cell">
-                        <app-logo [imageUrl]="product.logoUrl"/>
-                    </td>
-                    <td class="product-table__cell">{{ product.name }}</td>
-                    <td class="product-table__cell">{{ product.description }}</td>
-                    <td class="product-table__cell">{{ product.releaseDate }}</td>
-                    <td class="product-table__cell">{{ product.restructuringDate }}</td>
-                </tr>
-            }
-        </table>
-        @if (numberOfFilteredItems() !== 0) {
-            <app-table-paginator 
-            [numberOfItems]="numberOfFilteredItems()" 
-            [pageSize]="paginatorState().pageSize"
-            [pageIndex]="paginatorState().pageIndex"
-            (paginationChange)="handlePaginationChange($event)"
-        />
+<div class="table-top">
+    <app-search-bar (inputChange)="handleInputChange($event)"/>
+    <button class="add-button" routerLink="/agregar_producto">
+        Agregar
+    </button>
+</div>
+
+<table class="product-table">
+    <tr class="product-table__header">
+        @for (header of tableHeaders; track $index) {
+            <th class="product-table__header-cell">{{ header }}</th>
+        }
+    </tr>
+    @for (product of displayedProducts(); track product.id) {
+        <tr class="product-table__row">
+            <td class="product-table__cell">
+                <app-logo [imageUrl]="product.logoUrl"/>
+            </td>
+            <td class="product-table__cell">{{ product.name }}</td>
+            <td class="product-table__cell">{{ product.description }}</td>
+            <td class="product-table__cell">{{ product.releaseDate }}</td>
+            <td class="product-table__cell">{{ product.restructuringDate }}</td>
+        </tr>
+    }
+</table>
+@if (numberOfFilteredItems() !== 0) {
+    <app-table-paginator 
+    [numberOfItems]="numberOfFilteredItems()" 
+    [pageSize]="paginatorState().pageSize"
+    [pageIndex]="paginatorState().pageIndex"
+    (paginationChange)="handlePaginationChange($event)"
+/>
         }
         
-    </div>
-</main>

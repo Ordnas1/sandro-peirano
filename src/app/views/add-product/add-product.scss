@@ -1,0 +1,26 @@
+.add-form-container {
+    max-width: 680px;
+    background-color: white;
+    margin: 0 auto;
+}
+
+h2 {
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 16px;
+    border-bottom: 1px solid black;
+}
+
+.add-form {
+    font-family: 'Roboto', sans-serif;
+    &__row {
+        display: flex;
+        justify-content: space-evenly;
+        margin-bottom: 16px;
+    }
+
+    &__input {
+        width: 30%;
+        max-width: 300px;
+    }
+}
