@@ -1,6 +1,6 @@
 import { MockBuilder, MockRender, ngMocks } from "ng-mocks";
 import { ProductServiceAdapter } from "./products.service";
-import { HttpClient, provideHttpClient } from "@angular/common/http";
+import { provideHttpClient } from "@angular/common/http";
 import {
     HttpTestingController,
     provideHttpClientTesting,

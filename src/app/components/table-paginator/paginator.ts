@@ -1,4 +1,4 @@
-export type PaginatorEvent = {
+export interface PaginatorEvent {
     totalItems: number;
     pageIndex: number;
     pageSize: number;

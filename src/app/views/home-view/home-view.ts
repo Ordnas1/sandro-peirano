@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, signal } from "@angular/core";
+import { Component, computed, inject, signal } from "@angular/core";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { faMoneyBillWave } from "@fortawesome/free-solid-svg-icons";
 import { ProductService } from "../../services/products/products";

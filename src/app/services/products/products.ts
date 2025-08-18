@@ -1,4 +1,3 @@
-import { InjectionToken } from "@angular/core";
 import { Observable } from "rxjs";
 
 export abstract class ProductService {
@@ -7,7 +6,7 @@ export abstract class ProductService {
 
 
 
-export type Product = {
+export interface Product {
     id: string;
     name: string;
     description: string;
@@ -16,7 +15,7 @@ export type Product = {
     logoUrl: string;
 }
 
-export type ProductResponse = {
+export interface ProductResponse {
     data: {
         id: string;
         name: string;

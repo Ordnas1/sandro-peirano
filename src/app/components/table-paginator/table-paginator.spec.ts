@@ -1,5 +1,3 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { TablePaginator } from './table-paginator';
 import { provideZonelessChangeDetection } from '@angular/core';
 import { MockBuilder, MockRender } from 'ng-mocks';

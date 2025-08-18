@@ -6,11 +6,11 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./logo-component.scss']
 })
 export class LogoComponent {
-  @Input() imageUrl: string = '';
-  @Input() size: number = 50; // default size in pixels
-  @Input() fallbackText: string = 'LG';
+  @Input() imageUrl = '';
+  @Input() size = 50; // default size in pixels
+  @Input() fallbackText = 'LG';
   
-  imageLoadError: boolean = false;
+  imageLoadError = false;
 
   onImageError() {
     this.imageLoadError = true;

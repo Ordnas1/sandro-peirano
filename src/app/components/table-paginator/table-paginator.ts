@@ -1,7 +1,10 @@
-import { AfterViewInit, Component, computed, input, OnChanges, OnInit, output, signal } from "@angular/core";
+import { Component, computed, input, output } from "@angular/core";
 import { InitialPaginatorState, PaginatorEvent } from "./paginator";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
-import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import {
+  faChevronLeft,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: "app-table-paginator",
@@ -21,7 +24,8 @@ export class TablePaginator {
   paginationChange = output<PaginatorEvent>();
 
   disableNextPage = computed<boolean>(() =>
-    (this.pageIndex() + 1) * this.pageSize() >= this.numberOfItems());
+    (this.pageIndex() + 1) * this.pageSize() >= this.numberOfItems()
+  );
   disablePreviousPage = computed<boolean>(() => this.pageIndex() === 0);
 
   startDisplayedIndex = computed<number>(() =>
@@ -30,12 +34,11 @@ export class TablePaginator {
   endDisplayedIndex = computed<number>(() => {
     const endIndex = (this.pageIndex() + 1) * this.pageSize();
     return endIndex > this.numberOfItems() ? this.numberOfItems() : endIndex;
-  })
-
+  });
 
   onPaginationChange = (ev: PaginatorEvent) => {
     this.paginationChange.emit(ev);
-  }
+  };
 
   onNextPage = () => {
     if (!this.disableNextPage()) {
@@ -45,7 +48,7 @@ export class TablePaginator {
         pageSize: this.pageSize(),
       });
     }
-  }
+  };
 
   onPreviousPage = () => {
     if (!this.disablePreviousPage()) {
@@ -55,19 +58,17 @@ export class TablePaginator {
         pageSize: this.pageSize(),
       });
     }
-  }
+  };
 
   onSelectPageSize = (event: Event) => {
     const selectElement = event.target as HTMLSelectElement;
     const size = parseInt(selectElement.value, 10);
     if (this.pageSizeOptions().includes(size)) {
- 
       this.onPaginationChange({
         totalItems: this.numberOfItems(),
         pageIndex: 0,
         pageSize: size,
       });
     }
-  }
-  
+  };
 }
