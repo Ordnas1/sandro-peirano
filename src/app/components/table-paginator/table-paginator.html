@@ -1,0 +1,35 @@
+<div class="paginator-component">
+    <div class="paginator-component__results">
+        <span>{{numberOfItems()}} Resultados</span>
+    </div>
+
+    <div class="paginator-component__controls">
+        <select (input)="onSelectPageSize($event)">
+            @for (options of pageSizeOptions(); track $index) {
+                <option [value]="options">{{ options }}</option>
+            }
+        </select>
+        <button 
+            class="paginator-component__button" 
+            (click)="onPreviousPage()" 
+            [disabled]="disablePreviousPage()" 
+        >
+            <fa-icon [icon]="faChevronLeft" />
+        </button>
+        <button
+            (click)="onNextPage()"
+            [disabled]="disableNextPage()"
+        >
+            
+            <fa-icon 
+                [icon]="faChevronRight" 
+            />
+        </button>
+        <div>
+            <span>
+                {{ startDisplayedIndex() }} - {{ endDisplayedIndex() }} de {{ numberOfItems() }}
+            </span>
+        </div>
+    </div>
+
+</div>

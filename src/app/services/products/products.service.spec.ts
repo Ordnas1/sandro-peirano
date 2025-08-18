@@ -5,7 +5,7 @@ import {
     HttpTestingController,
     provideHttpClientTesting,
 } from "@angular/common/http/testing";
-import { environment } from "../../environments/environment";
+import { environment } from "../../../environments/environment";
 import { provideZonelessChangeDetection } from "@angular/core";
 
 const API_URL = environment.apiUrl;

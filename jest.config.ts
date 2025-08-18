@@ -13,6 +13,12 @@ const config: Config = {
   testEnvironment: "jsdom",
   preset: 'jest-preset-angular',
   setupFilesAfterEnv: ['./setup-jest.ts'],
+  collectCoverageFrom: [
+    "src/app/**/*.ts",
+    "!src/app/main.ts",
+    "!src/app/app.config.ts",
+    "!src/app/app.routes.ts",
+  ]
 }
 
 export default config;

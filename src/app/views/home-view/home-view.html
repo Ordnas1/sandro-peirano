@@ -6,13 +6,14 @@
 </header>
 <main class="home-main">
     <div class="home-main__content">
+        <app-search-bar (inputChange)="handleInputChange($event)"/>
         <table class="product-table">
             <tr class="product-table__header">
                 @for (header of tableHeaders; track $index) {
                     <th class="product-table__header-cell">{{ header }}</th>
                 }
             </tr>
-            @for (product of products(); track product.id) {
+            @for (product of displayedProducts(); track product.id) {
                 <tr class="product-table__row">
                     <td class="product-table__cell">
                         <app-logo [imageUrl]="product.logoUrl"/>
@@ -24,5 +25,14 @@
                 </tr>
             }
         </table>
+        @if (numberOfFilteredItems() !== 0) {
+            <app-table-paginator 
+            [numberOfItems]="numberOfFilteredItems()" 
+            [pageSize]="paginatorState().pageSize"
+            [pageIndex]="paginatorState().pageIndex"
+            (paginationChange)="handlePaginationChange($event)"
+        />
+        }
+        
     </div>
 </main>

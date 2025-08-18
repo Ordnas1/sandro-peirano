@@ -98,7 +98,14 @@
               "includePaths": [
                 "src/styles"
               ]
-            }
+            },
+            "codeCoverage": true,
+            "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ]
           }
         },
         "lint": {
