@@ -1,0 +1,26 @@
+<header class="home-header">
+     <h1 class="home-header__title">
+        <fa-icon [icon]="faMoneyBillWave" /> 
+        Banco de Prueba
+    </h1>
+</header>
+<main class="home-main">
+    <div class="home-main__content">
+        <table class="product-table">
+            <tr class="product-table__header">
+                @for (header of tableHeaders; track $index) {
+                    <th class="product-table__header-cell">{{ header }}</th>
+                }
+            </tr>
+            @for (product of products(); track product.id) {
+                <tr class="product-table__row">
+                    <td class="product-table__cell">{{ product.logoUrl }}</td>
+                    <td class="product-table__cell">{{ product.name }}</td>
+                    <td class="product-table__cell">{{ product.description }}</td>
+                    <td class="product-table__cell">{{ product.releaseDate }}</td>
+                    <td class="product-table__cell">{{ product.restructuringDate }}</td>
+                </tr>
+            }
+        </table>
+    </div>
+</main>

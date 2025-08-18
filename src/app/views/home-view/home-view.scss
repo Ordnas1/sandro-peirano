@@ -1,0 +1,62 @@
+@use 'tokens/colors' as colors;
+@use 'tokens/breakpoints' as bp;
+
+.home-header {
+    font-family: 'Arvo', serif;
+
+    &__title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+.home-main {
+    background-color: colors.$grey-background;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    flex: 1 1 auto;
+
+    &__content {
+        width: bp.$lg;
+    }
+}
+
+.product-table {
+    width: 100%;
+    background-color: white;
+    border: 16px solid white;
+    font-family: 'Roboto', sans-serif;
+    border-collapse: collapse;
+
+    &__header {
+        background-color: whitesmoke;
+    }
+    &__header-cell {
+
+        border: none
+    }   
+
+    &__row {
+        border-bottom: 1px solid black;
+        background-color: white;
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+
+    &__cell {
+        padding: 8px;
+        text-align: center;
+    }
+}
+
+:host {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
