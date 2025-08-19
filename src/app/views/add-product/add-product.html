@@ -1,6 +1,10 @@
 <div class="add-form-container">
     <h2>Formulario de registro</h2>
-    <form [formGroup]="productForm" class="add-form">
+    <form 
+        [formGroup]="productForm" 
+        class="add-form"
+        (ngSubmit)="onSubmit()"
+    >
         <div class="add-form__row">
             <app-form-input 
                 formControlName="id" 
@@ -49,9 +53,10 @@
                 class="add-form__input"
             />
         </div>
+        <div class="add-form__actions">
+            <button (click)="productForm.reset()">Reiniciar</button>
+            <button type="submit" [disabled]="productForm.invalid">Enviar</button>
+        </div>
     </form>
-    <div class="add-form__actions">
-        <button>Reiniciar</button>
-        <button>Enviar</button>
-    </div>
+    
 </div>

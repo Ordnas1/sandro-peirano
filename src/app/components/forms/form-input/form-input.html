@@ -6,19 +6,25 @@
         
     }
     <input 
+        #input
         class="text-input" 
         [id]="name()" 
         [type]="type()"
         [placeholder]="placeholder()"
         [disabled]="disabled()"
+        [value]="value()"
         (input)="onInput($event)"
         (blur)="onBlur()"
     />
 
-    @if (hasError()) {
-    <div class="error-message">
-     err
-    </div>
-  }
+    @if(hasErrors()) {
+        <div class="error-message">
+            @for (errorMsg of errorMessages(); track $index) {
+                <p>{{errorMsg}}</p>
+            }
+        </div>
+    }
+     
+  
 
 </div>

@@ -4,7 +4,7 @@ import { HomeViewComponent } from './views/home-view/home-view';
 export const routes: Routes = [
     {
         path: '',
-        component: HomeViewComponent
+        component: HomeViewComponent,
     },
     {
         path: 'agregar_producto',
