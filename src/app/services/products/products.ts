@@ -6,6 +6,7 @@ export abstract class ProductService {
     abstract createProduct: (
         payload: Product,
     ) => Observable<CreateProductResponse>;
+    abstract deleteProduct: (productId: string) => Observable<unknown>;
 }
 
 export interface CreateProductResponse {
@@ -27,6 +28,10 @@ export interface Product {
     releaseDate: string;
     revisionDate?: string;
     logoUrl: string;
+}
+
+export interface ProductRow extends Product {
+    openDropdown?: boolean
 }
 
 export interface ProductResponse {

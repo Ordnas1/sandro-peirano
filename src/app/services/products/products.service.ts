@@ -35,4 +35,7 @@ export class ProductServiceAdapter implements ProductService {
             date_release: payload.releaseDate,
             date_revision: payload.revisionDate
         })
+
+    deleteProduct = (productId: string) => 
+        this.http.delete(`${this.apiUrl}/products/${productId}`)
 }

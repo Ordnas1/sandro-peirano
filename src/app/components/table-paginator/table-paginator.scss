@@ -2,6 +2,86 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px;
+  padding: 16px 20px;
   background-color: white;
+  font-family: "Roboto", serif;
+  
+  &__results {
+    span {
+      font-size: 14px;
+      font-weight: 500;
+      color: dimgray;
+    }
+  }
+  
+  &__controls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    
+    select {
+      padding: 8px 12px;
+      border: 1px solid lightgray;
+      border-radius: 6px;
+      background-color: white;
+      font-size: 14px;
+      color: darkslategray;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      
+      &:hover {
+        border-color: steelblue;
+      }
+      
+      &:focus {
+        outline: none;
+        border-color: dodgerblue;
+        box-shadow: 0 0 0 2px lightblue;
+      }
+    }
+  }
+  
+  &__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: 1px solid lightgray;
+    border-radius: 6px;
+    background-color: white;
+    color: dimgray;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    
+    &:hover:not(:disabled) {
+      background-color: aliceblue;
+      border-color: steelblue;
+      color: steelblue;
+    }
+    
+    &:active:not(:disabled) {
+      background-color: lightsteelblue;
+      transform: translateY(1px);
+    }
+    
+    &:disabled {
+      background-color: whitesmoke;
+      border-color: gainsboro;
+      color: lightgray;
+      cursor: not-allowed;
+    }
+    
+    fa-icon {
+      font-size: 12px;
+    }
+  }
+}
+
+.paginator-indicator {
+  span {
+    font-size: 14px;
+    color: dimgray;
+    font-weight: 400;
+  }
 }

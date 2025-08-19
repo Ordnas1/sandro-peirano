@@ -1,7 +1,12 @@
 import { Component, computed, inject, signal } from "@angular/core";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
-import { faMoneyBillWave } from "@fortawesome/free-solid-svg-icons";
-import { ProductService } from "../../services/products/products";
+import {
+  faEdit,
+  faEllipsisVertical,
+  faMoneyBillWave,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
+import { ProductRow, ProductService } from "../../services/products/products";
 import { ProductServiceAdapter } from "../../services/products/products.service";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { LogoComponent } from "../../components/logo-component/logo-component";
@@ -13,6 +18,8 @@ import {
   PaginatorState,
 } from "../../components/table-paginator/paginator";
 import { RouterLink } from "@angular/router";
+import { AppModal } from "../../components/app-modal/app-modal";
+import { startWith, Subject, switchMap, take } from "rxjs";
 
 @Component({
   selector: "app-home-view",
@@ -22,6 +29,7 @@ import { RouterLink } from "@angular/router";
     SearchBar,
     TablePaginator,
     RouterLink,
+    AppModal,
   ],
   templateUrl: "./home-view.html",
   styleUrl: "./home-view.scss",
@@ -32,15 +40,29 @@ import { RouterLink } from "@angular/router";
 })
 export class HomeViewComponent {
   faMoneyBillWave = faMoneyBillWave;
+  faEllipsisVertical = faEllipsisVertical;
+  faEdit = faEdit;
+  faTrash = faTrash;
 
   productService = inject(ProductService);
 
-  products = toSignal(this.productService.getProducts(), { initialValue: [] });
+  private refreshProductFetch$ = new Subject<void>();
+  products = toSignal(
+    this.refreshProductFetch$.pipe(
+      startWith(null),
+      switchMap(() => this.productService.getProducts()),
+    ),
+    { initialValue: [] },
+  );
   filterKeyword = signal("");
 
   numberOfFilteredProducts = signal<number>(0);
   paginatorState = signal<PaginatorState>(InitialPaginatorState);
-  displayedProducts = computed(() => {
+
+  isModalOpen = signal<boolean>(false);
+  productToDelete = signal<ProductRow | null>(null);
+
+  displayedProducts = computed<ProductRow[]>(() => {
     const keyword = this.filterKeyword();
     const filteredProducts = this.filterProductsByKeyword(keyword);
 
@@ -64,7 +86,33 @@ export class HomeViewComponent {
     "Descripción",
     "Fecha de liberación",
     "Fecha de reestructuración",
+    "",
   ] as const;
+
+  openDropdownId = signal<string | null>(null);
+  toggleDropdown = (productId: string) => {
+    const currentId = this.openDropdownId();
+    this.openDropdownId.set(currentId === productId ? null : productId);
+  };
+
+  closeDropdown = () => {
+    this.openDropdownId.set(null);
+  };
+
+  isDropdownOpen = (productId: string): boolean => {
+    return this.openDropdownId() === productId;
+  };
+
+  onDeleteAction = (product: ProductRow) => {
+    this.closeDropdown();
+    this.productToDelete.set(product);
+    this.isModalOpen.set(true);
+  };
+
+  onCloseModal = () => {
+    console.log("us this closeing");
+    this.isModalOpen.set(false);
+  };
 
   handleInputChange = (value: string) => {
     this.resetPaginator();
@@ -73,6 +121,17 @@ export class HomeViewComponent {
   handlePaginationChange = (event: PaginatorEvent) => {
     this.paginatorState.set(event);
   };
+
+  deleteProduct() {
+    if (!this.productToDelete()?.id) {
+      console.warn("ID not found in product to delete");
+    }
+    this.isModalOpen.set(false)
+    this.productService.deleteProduct(this.productToDelete()?.id as string)
+      .pipe(take(1)).subscribe(() => {
+        this.refreshProductFetch$.next()
+      });
+  }
 
   private filterProductsByKeyword = (keyword: string) => {
     return this.products().filter((product) =>

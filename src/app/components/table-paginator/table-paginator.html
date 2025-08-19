@@ -19,13 +19,14 @@
         <button
             (click)="onNextPage()"
             [disabled]="disableNextPage()"
+            class="paginator-component__button"
         >
             
             <fa-icon 
                 [icon]="faChevronRight" 
             />
         </button>
-        <div>
+        <div class="paginator-indicator">
             <span>
                 {{ startDisplayedIndex() }} - {{ endDisplayedIndex() }} de {{ numberOfItems() }}
             </span>
