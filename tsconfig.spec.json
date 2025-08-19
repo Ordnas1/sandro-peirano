@@ -5,9 +5,10 @@
   "compilerOptions": {
     "outDir": "./out-tsc/spec",
     "types": [
-      "jest"
+      "jest",
+      "@testing-library/jest-dom"
     ],
     "esModuleInterop": true,
   },
-  "include": ["src/**/*.spec.ts", "src/**/*.d.ts"]
+  "include": ["src/**/*.spec.ts", "src/**/*.d.ts", "src/app/shared/test/product-service-mocks.ts"]
 }
