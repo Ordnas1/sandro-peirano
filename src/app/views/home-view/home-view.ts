@@ -6,7 +6,7 @@ import {
   faMoneyBillWave,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
-import { ProductRow, ProductService } from "../../services/products/products";
+import { Product, ProductRow, ProductService } from "../../services/products/products";
 import { ProductServiceAdapter } from "../../services/products/products.service";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { LogoComponent } from "../../components/logo-component/logo-component";
@@ -17,9 +17,10 @@ import {
   PaginatorEvent,
   PaginatorState,
 } from "../../components/table-paginator/paginator";
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 import { AppModal } from "../../components/app-modal/app-modal";
 import { startWith, Subject, switchMap, take } from "rxjs";
+import { AppButton } from "../../components/forms/app-button/app-button";
 
 @Component({
   selector: "app-home-view",
@@ -30,6 +31,7 @@ import { startWith, Subject, switchMap, take } from "rxjs";
     TablePaginator,
     RouterLink,
     AppModal,
+    AppButton
   ],
   templateUrl: "./home-view.html",
   styleUrl: "./home-view.scss",
@@ -45,6 +47,7 @@ export class HomeViewComponent {
   faTrash = faTrash;
 
   productService = inject(ProductService);
+  router = inject(Router)
 
   private refreshProductFetch$ = new Subject<void>();
   products = toSignal(
@@ -108,6 +111,13 @@ export class HomeViewComponent {
     this.productToDelete.set(product);
     this.isModalOpen.set(true);
   };
+
+  onUpdateAction = (product: Product) => {
+    this.closeDropdown()
+    this.productService.setProductToEdit(product)
+    console.log("prod in hv",this.productService.getProductToEdit())
+    this.router.navigate([`/editar_producto/${product.id}`])
+  }
 
   onCloseModal = () => {
     console.log("us this closeing");

@@ -1,23 +1,15 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AppModal } from "./app-modal";
+import { MockBuilder, MockRender } from "ng-mocks";
+import { provideZonelessChangeDetection } from "@angular/core";
 
-import { AppModal } from './app-modal';
+describe("AppModal", () => {
+  beforeEach(async () =>
+    await MockBuilder(AppModal).provide(provideZonelessChangeDetection())
+  );
 
-describe('AppModal', () => {
-  let component: AppModal;
-  let fixture: ComponentFixture<AppModal>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [AppModal]
-    })
-    .compileComponents();
-
-    fixture = TestBed.createComponent(AppModal);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
+  it("should create", () => {
+    const fixture = MockRender(AppModal);
+    const component = fixture.point.componentInstance;
     expect(component).toBeTruthy();
   });
 });

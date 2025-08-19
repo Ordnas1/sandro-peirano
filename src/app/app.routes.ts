@@ -10,4 +10,8 @@ export const routes: Routes = [
         path: 'agregar_producto',
         loadComponent: () => import('./views/add-product/add-product').then(m => m.AddProduct)
     },
+    {
+        path: 'editar_producto/:id',
+         loadComponent: () => import('./views/edit-product/edit-product').then(m => m.EditProduct)
+    }
 ];

@@ -7,6 +7,9 @@ export abstract class ProductService {
         payload: Product,
     ) => Observable<CreateProductResponse>;
     abstract deleteProduct: (productId: string) => Observable<unknown>;
+    abstract updateProduct: (product: Product) => Observable<UpdateProductResponse>
+    abstract setProductToEdit: (product: Product) => void;
+    abstract getProductToEdit: () => Product | undefined
 }
 
 export interface CreateProductResponse {
@@ -19,6 +22,18 @@ export interface CreateProductResponse {
         date_release: string;
         date_revision: string;
     };
+}
+
+export interface UpdateProductResponse {
+    message: string;
+    data? : {
+        name: string;
+        description: string;
+        logo: string;
+        date_release: string;
+        date_revision: string;
+    }
+    name?: string
 }
 
 export interface Product {

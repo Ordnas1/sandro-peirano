@@ -52,7 +52,7 @@ describe("ProductsService", () => {
                 name: "Product 1",
                 description: "Description of Product 1",
                 releaseDate: "2023-01-01",
-                restructuringDate: "2023-06-01",
+                revisionDate: "2023-06-01",
                 logoUrl: `${API_URL}/logo1.png`,
             },
             {
@@ -60,7 +60,7 @@ describe("ProductsService", () => {
                 name: "Product 2",
                 description: "Description of Product 2",
                 releaseDate: "2023-02-01",
-                restructuringDate: "2023-07-01",
+                revisionDate: "2023-07-01",
                 logoUrl: `${API_URL}/logo2.png`,
             },
         ]

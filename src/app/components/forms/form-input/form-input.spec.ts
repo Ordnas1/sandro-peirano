@@ -1,23 +1,17 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { provideZonelessChangeDetection } from '@angular/core';
 import { FormInput } from './form-input';
+import { MockBuilder, MockRender } from 'ng-mocks';
 
 describe('FormInput', () => {
-  let component: FormInput;
-  let fixture: ComponentFixture<FormInput>;
+
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [FormInput]
-    })
-    .compileComponents();
-
-    fixture = TestBed.createComponent(FormInput);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    await MockBuilder(FormInput).provide(provideZonelessChangeDetection())
   });
 
   it('should create', () => {
+    const fixture = MockRender(FormInput)
+    const component = fixture.point.componentInstance
     expect(component).toBeTruthy();
   });
 });

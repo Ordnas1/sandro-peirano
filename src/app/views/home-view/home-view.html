@@ -4,9 +4,9 @@
 
 <div class="table-top">
     <app-search-bar (inputChange)="handleInputChange($event)" />
-    <button class="add-button" routerLink="/agregar_producto">
+    <app-button variant="primary" routerLink="/agregar_producto">
         Agregar
-    </button>
+    </app-button>
 </div>
 
 <table class="product-table">
@@ -32,15 +32,15 @@
                 </button>
                 @if(isDropdownOpen(product.id)) {
                 <div class="dropdown-content" [class.show]="isDropdownOpen(product.id)">
-                    <a class="dropdown-item">
+                    <span aria-hidden="true" (click)="onUpdateAction(product)" class="dropdown-item">
                         <fa-icon [icon]="faEdit"></fa-icon>
                         <span>Editar</span>
-                    </a>
+                    </span>
                     <div class="dropdown-divider"></div>
-                    <a aria-hidden="true" (click)="onDeleteAction(product)" class="dropdown-item delete-action">
+                    <span aria-hidden="true" (click)="onDeleteAction(product)" class="dropdown-item delete-action">
                         <fa-icon [icon]="faTrash"></fa-icon>
                         <span>Eliminar</span>
-                    </a>
+                    </span>
                 </div>
                 }
             </div>

@@ -1,23 +1,16 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { AddProduct } from './add-product';
+import { MockBuilder, MockRender } from 'ng-mocks';
+import { provideZonelessChangeDetection } from '@angular/core';
+import { ProductServiceAdapter } from '../../services/products/products.service';
 
 describe('AddProduct', () => {
-  let component: AddProduct;
-  let fixture: ComponentFixture<AddProduct>;
-
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [AddProduct]
-    })
-    .compileComponents();
-
-    fixture = TestBed.createComponent(AddProduct);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+   await MockBuilder(AddProduct).provide([provideZonelessChangeDetection()]).mock(ProductServiceAdapter)
   });
 
   it('should create', () => {
+    const fixture = MockRender(AddProduct)
+    const component = fixture.point.componentInstance
     expect(component).toBeTruthy();
   });
 });

@@ -6,7 +6,7 @@ import { AppHeader } from './components/app-header/app-header';
   selector: 'app-root',
   imports: [RouterOutlet, AppHeader],
   templateUrl: './app.html',
-  styleUrl: './app.scss'
+  styleUrl: './app.scss',
 })
 export class App {
   protected readonly title = signal('angular-bancoo');

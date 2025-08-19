@@ -1,8 +1,9 @@
 import { Component, effect, input, output, signal } from "@angular/core";
+import { AppButton } from "../forms/app-button/app-button";
 
 @Component({
   selector: "app-modal",
-  imports: [],
+  imports: [AppButton],
   templateUrl: "./app-modal.html",
   styleUrl: "./app-modal.scss",
 })

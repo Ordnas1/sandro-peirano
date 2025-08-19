@@ -37,6 +37,7 @@ export class FormInput implements ControlValueAccessor, OnInit, OnDestroy {
   placeholder = input<string>();
   type = input<string>("text");
   name = input<string>();
+  minValue = input<string>();
 
   disabled = signal<boolean>(false);
   value = signal<string>("");
@@ -131,6 +132,7 @@ export class FormInput implements ControlValueAccessor, OnInit, OnDestroy {
       min: (error) => `El valor mínimo es ${error["min"]}.`,
       max: (error) => `El valor máximo es ${error["max"]}.`,
       itExists: () => "El valor de la ID ya existe",
+      dateUnderMin: () => "La fecha tiene que ser mayor o igual al dia de hoy"
     };
 
     const messageConfig = { ...defaultMessages, ...customMessages };

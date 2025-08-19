@@ -1,4 +1,4 @@
-.add-form-container {
+.edit-form-container {
     max-width: 680px;
     background-color: white;
     margin: 0 auto;
@@ -11,7 +11,7 @@ h2 {
     border-bottom: 1px solid black;
 }
 
-.add-form {
+.edit-form {
     font-family: 'Roboto', sans-serif;
     &__row {
         display: flex;

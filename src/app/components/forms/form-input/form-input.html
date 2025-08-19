@@ -1,6 +1,6 @@
 <div class="input-wrapper">
     @if(label()) {
-        <label class="input-label" [htmlFor]="name()">
+        <label class="input-label" [htmlFor]="name()" [class.error]="hasErrors()">
             {{label()}}
         </label>
         
@@ -13,12 +13,14 @@
         [placeholder]="placeholder()"
         [disabled]="disabled()"
         [value]="value()"
+        [class.error]="hasErrors()"
+        [min]="minValue()"
         (input)="onInput($event)"
         (blur)="onBlur()"
     />
 
     @if(hasErrors()) {
-        <div class="error-message">
+        <div class="error">
             @for (errorMsg of errorMessages(); track $index) {
                 <p>{{errorMsg}}</p>
             }
