@@ -1,32 +1,65 @@
+@use 'tokens/breakpoints' as bp;
+
 .edit-form-container {
     max-width: 680px;
     background-color: white;
     margin: 0 auto;
+    padding: 0 16px;
+    
+    @media (max-width: bp.$sm) {
+        padding: 0 12px;
+    }
 }
 
 h2 {
     text-align: center;
     font-family: 'Roboto', sans-serif;
-    margin-bottom: 16px;
+    margin-bottom: 24px;
     border-bottom: 1px solid black;
+    font-size: 2rem;
+    padding-bottom: 12px;
+    
+    @media (max-width: bp.$sm) {
+        font-size: 1.75rem;
+        margin-bottom: 20px;
+    }
 }
 
 .edit-form {
     font-family: 'Roboto', sans-serif;
+    
     &__row {
         display: flex;
         justify-content: space-evenly;
         margin-bottom: 16px;
+        gap: 16px;
+        
+        @media (max-width: bp.$md) {
+            flex-direction: column;
+            gap: 12px;
+        }
     }
 
     &__input {
         width: 30%;
         max-width: 300px;
+        
+        @media (max-width: bp.$md) {
+            width: 100%;
+            max-width: none;
+        }
     }
 
     &__actions {
         display: flex;
         justify-content: space-evenly;
         padding: 24px 0px;
+        gap: 16px;
+        
+        @media (max-width: bp.$sm) {
+            flex-direction: column;
+            gap: 12px;
+            padding: 20px 0;
+        }
     }
 }
