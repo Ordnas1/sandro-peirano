@@ -1,0 +1,30 @@
+<div class="toaster-container">
+      @for (toast of toasts(); track toast.id) {
+        <div 
+          [class]="getToastClass(toast.type)"
+          class="toast-item"
+        >
+          <div class="toast-content">
+            <div class="toast-icon">
+              @switch (toast.type) {
+                @case ('success') { 
+                  <fa-icon [icon]="faCheckCircle" [title]="'Success'"></fa-icon> 
+                }
+                @case ('error') { 
+                  <fa-icon [icon]="faTimesCircle" [title]="'Error'"></fa-icon> 
+                }
+              }
+            </div>
+            <div class="toast-message">{{ toast.message }}</div>
+            <button 
+              class="toast-close" 
+              (click)="closeToast(toast.id)"
+              aria-label="Close notification"
+              type="button"
+            >
+              <fa-icon [icon]="faTimes" [title]="'Error'"></fa-icon> 
+            </button>
+          </div>
+        </div>
+      }
+    </div>

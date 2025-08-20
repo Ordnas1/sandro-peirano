@@ -13,17 +13,19 @@ import { addYears, format } from "date-fns"; // TODO encapsulate in service
 import { Router } from "@angular/router";
 import { AppButton } from "../../components/forms/app-button/app-button";
 import { minDateValidator } from "../../components/forms/validators/date-validators";
+import { ToasterService } from "../../shared/toaster/toaster";
 
 @Component({
   selector: "app-edit-product",
   imports: [FormInput, ReactiveFormsModule, AppButton],
   templateUrl: "./edit-product.html",
   styleUrl: "./edit-product.scss",
-  providers: [{provide: ProductService, useClass: ProductServiceAdapter}],
+  providers: [{ provide: ProductService, useClass: ProductServiceAdapter }],
 })
 export class EditProduct implements OnInit, OnDestroy {
   private productService = inject(ProductService);
   private router = inject(Router);
+  private toasterService = inject(ToasterService)
 
   productForm = new FormGroup({
     id: new FormControl({ value: "", disabled: true }, {}),
@@ -42,7 +44,7 @@ export class EditProduct implements OnInit, OnDestroy {
     ]),
     releaseDate: new FormControl("", [
       Validators.required,
-      minDateValidator(new Date())
+      minDateValidator(new Date()),
     ]),
     revisionDate: new FormControl({ value: "", disabled: true }, [
       Validators.required,
@@ -52,7 +54,7 @@ export class EditProduct implements OnInit, OnDestroy {
   private terminator = new Subject<void>();
 
   // Valor para limitar datepicker
-  minDate = format(new Date(), 'yyyy-MM-dd') 
+  minDate = format(new Date(), "yyyy-MM-dd");
 
   ngOnInit(): void {
     this.productForm.get("releaseDate")?.valueChanges.pipe(
@@ -67,17 +69,17 @@ export class EditProduct implements OnInit, OnDestroy {
       });
     });
 
-    this.resetFormValuesToStoredUpdateObject()
+    this.resetFormValuesToStoredUpdateObject();
   }
 
   ngOnDestroy = () => {
     this.terminator.next();
     this.terminator.complete();
-  }
+  };
 
   resetForm = () => {
-    this.resetFormValuesToStoredUpdateObject()
-  }
+    this.resetFormValuesToStoredUpdateObject();
+  };
 
   onSubmit = () => {
     if (this.productForm.valid) {
@@ -90,13 +92,19 @@ export class EditProduct implements OnInit, OnDestroy {
         revisionDate: this.productForm.getRawValue().revisionDate,
       } as Product;
 
-      this.productService.updateProduct(product).pipe(take(1)).subscribe(() =>
-        this.router.navigate([""])
-      );
+      this.productService.updateProduct(product).pipe(take(1)).subscribe({
+        next: () => {
+          this.toasterService.showSuccess("El producto ha sido actualizado con exito")
+          this.router.navigate([""]);
+        },
+        error: () => {
+          this.toasterService.showError("Hubo un problema al momento de actualizar el producto")
+        }
+      });
     } else {
-      console.warn("Form is invalid");
+      this.toasterService.showError("El formulario tiene valores inválidos")
     }
-  }
+  };
 
   private resetFormValuesToStoredUpdateObject = () => {
     const product = this.productService.getProductToEdit();
@@ -110,5 +118,5 @@ export class EditProduct implements OnInit, OnDestroy {
       releaseDate: product.releaseDate,
       revisionDate: product.revisionDate ?? "",
     });
-  }
+  };
 }

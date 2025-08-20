@@ -14,6 +14,7 @@ import { addYears, format } from "date-fns"; // TODO encapsulate in service
 import { Router } from "@angular/router";
 import { AppButton } from "../../components/forms/app-button/app-button";
 import { minDateValidator } from "../../components/forms/validators/date-validators";
+import { ToasterService } from "../../shared/toaster/toaster";
 
 @Component({
   selector: "app-add-product",
@@ -29,6 +30,7 @@ export class AddProduct implements OnInit, OnDestroy {
   private doesIdExist = inject(UniqueIDValidator);
   private productService = inject(ProductService);
   private router = inject(Router);
+  private toasterService = inject(ToasterService);
 
   productForm = new FormGroup({
     id: new FormControl("", {
@@ -55,7 +57,7 @@ export class AddProduct implements OnInit, OnDestroy {
     ]),
     releaseDate: new FormControl("", [
       Validators.required,
-      minDateValidator(new Date())
+      minDateValidator(new Date()),
     ]),
     revisionDate: new FormControl({ value: "", disabled: true }, [
       Validators.required,
@@ -65,14 +67,14 @@ export class AddProduct implements OnInit, OnDestroy {
   private terminator = new Subject<void>();
 
   // Valor para limitar datepicker
-  minDate = format(new Date(), 'yyyy-MM-dd') 
+  minDate = format(new Date(), "yyyy-MM-dd");
 
   ngOnInit(): void {
     this.productForm.get("releaseDate")?.valueChanges.pipe(
       takeUntil(this.terminator),
     ).subscribe((val) => {
       if (!val) {
-        return
+        return;
       }
       const nextyear = format(addYears(new Date(val), 1), "yyyy-MM-dd");
       this.productForm.get("revisionDate")?.setValue(nextyear, {
@@ -97,11 +99,21 @@ export class AddProduct implements OnInit, OnDestroy {
         revisionDate: this.productForm.getRawValue().revisionDate,
       } as Product;
 
-      this.productService.createProduct(product).pipe(take(1)).subscribe((
-        _val,
-      ) => this.router.navigate([""]));
+      this.productService.createProduct(product).pipe(take(1)).subscribe({
+        complete: () => {
+          this.toasterService.showSuccess(
+            "Producto creado satisfactoriamente",
+          );
+          this.router.navigate([""]);
+        },
+        error: () => {
+          this.toasterService.showError(
+            "Ocurrió un error al momento de crear el producto"
+          )
+        }
+      });
     } else {
-      console.warn("Form is invalid");
+      this.toasterService.showError("El formulario tiene valores inválidos")
     }
   }
 }
