@@ -25,13 +25,12 @@
     }
 }
 
-// Table container for horizontal scroll
+
 .table-container {
     width: 100%;
     overflow-x: auto;
-    -webkit-overflow-scrolling: touch; // Smooth scrolling on iOS
+    -webkit-overflow-scrolling: touch; 
     
-    // Add scrollbar styling
     &::-webkit-scrollbar {
         height: 8px;
     }
@@ -53,7 +52,7 @@
 
 .product-table {
     width: 100%;
-    min-width: 800px; // Minimum width to maintain table structure
+    min-width: 800px; 
     background-color: white;
     border: 16px solid white;
     font-family: 'Roboto', sans-serif;
@@ -64,7 +63,7 @@
     }
     &__header-cell {
         border: none;
-        white-space: nowrap; // Prevent header text wrapping
+        white-space: nowrap; 
         padding: 12px 8px;
     }   
 
@@ -80,9 +79,8 @@
     &__cell {
         padding: 8px;
         text-align: center;
-        white-space: nowrap; // Prevent cell content wrapping
+        white-space: nowrap; 
         
-        // Allow description column to wrap if needed
         &:nth-child(3) {
             white-space: normal;
             max-width: 200px;

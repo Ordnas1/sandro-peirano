@@ -13,5 +13,20 @@
 
     &__content {
         width: bp.$lg;
+
+        @media (max-width: bp.$lg) {
+            width: 90%;
+        }
+
+        @media (max-width: bp.$md) {                                                                 
+            width: 90%;                                                                              
+            max-width: bp.$md;                                                                       
+        }                                                                                            
+                                                                                                     
+        // Mobile (sm breakpoint)                                                                    
+        @media (max-width: bp.$sm) {                                                                 
+            width: 95%;                                                                              
+            padding: 0 1rem;                                                                         
+        }    
     }
 }
