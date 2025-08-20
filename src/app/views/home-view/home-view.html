@@ -9,52 +9,53 @@
     </app-button>
 </div>
 
-<table class="product-table">
-    <tr class="product-table__header">
-        @for (header of tableHeaders; track $index) {
-        <th class="product-table__header-cell">{{ header }}</th>
-        }
-    </tr>
-    @if(isLoading()) {
-        @for (item of skeletonArray; track $index) {
-            <app-skeleton-table-row />
-        }
-    } @else {
-    @for (product of displayedProducts(); track product.id) {
-        <tr class="product-table__row">
-            <td class="product-table__cell">
-                <app-logo [imageUrl]="product.logoUrl" />
-            </td>
-            <td class="product-table__cell">{{ product.name }}</td>
-            <td class="product-table__cell">{{ product.description }}</td>
-            <td class="product-table__cell">{{ product.releaseDate }}</td>
-            <td class="product-table__cell">{{ product.revisionDate }}</td>
-            <td class="product-table__cell">
-                <div class="dropdown">
-                    <button class="dropdown-btn" (click)="toggleDropdown(product.id)"
-                        [attr.aria-expanded]="isDropdownOpen(product.id)">
-                        <fa-icon [icon]="faEllipsisVertical"></fa-icon>
-                    </button>
-                    @if(isDropdownOpen(product.id)) {
-                    <div class="dropdown-content" [class.show]="isDropdownOpen(product.id)">
-                        <span aria-hidden="true" (click)="onUpdateAction(product)" class="dropdown-item">
-                            <fa-icon [icon]="faEdit"></fa-icon>
-                            <span>Editar</span>
-                        </span>
-                        <div class="dropdown-divider"></div>
-                        <span aria-hidden="true" (click)="onDeleteAction(product)" class="dropdown-item delete-action">
-                            <fa-icon [icon]="faTrash"></fa-icon>
-                            <span>Eliminar</span>
-                        </span>
-                    </div>
-                    }
-                </div>
-            </td>
+<div class="table-container">
+    <table class="product-table">
+        <tr class="product-table__header">
+            @for (header of tableHeaders; track $index) {
+            <th class="product-table__header-cell">{{ header }}</th>
+            }
         </tr>
+        @if(isLoading()) {
+            @for (item of skeletonArray; track $index) {
+                <app-skeleton-table-row />
+            }
+        } @else {
+        @for (product of displayedProducts(); track product.id) {
+            <tr class="product-table__row">
+                <td class="product-table__cell">
+                    <app-logo [imageUrl]="product.logoUrl" />
+                </td>
+                <td class="product-table__cell">{{ product.name }}</td>
+                <td class="product-table__cell">{{ product.description }}</td>
+                <td class="product-table__cell">{{ product.releaseDate }}</td>
+                <td class="product-table__cell">{{ product.revisionDate }}</td>
+                <td class="product-table__cell">
+                    <div class="dropdown">
+                        <button class="dropdown-btn" (click)="toggleDropdown(product.id)"
+                            [attr.aria-expanded]="isDropdownOpen(product.id)">
+                            <fa-icon [icon]="faEllipsisVertical"></fa-icon>
+                        </button>
+                        @if(isDropdownOpen(product.id)) {
+                        <div class="dropdown-content" [class.show]="isDropdownOpen(product.id)">
+                            <span aria-hidden="true" (click)="onUpdateAction(product)" class="dropdown-item">
+                                <fa-icon [icon]="faEdit"></fa-icon>
+                                <span>Editar</span>
+                            </span>
+                            <div class="dropdown-divider"></div>
+                            <span aria-hidden="true" (click)="onDeleteAction(product)" class="dropdown-item delete-action">
+                                <fa-icon [icon]="faTrash"></fa-icon>
+                                <span>Eliminar</span>
+                            </span>
+                        </div>
+                        }
+                    </div>
+                </td>
+            </tr>
+            }
         }
-    }
-
-</table>
+    </table>
+</div>
 @if (numberOfFilteredItems() !== 0 && !isLoading()) {
 <app-table-paginator [numberOfItems]="numberOfFilteredItems()" [pageSize]="paginatorState().pageSize"
     [pageIndex]="paginatorState().pageIndex" (paginationChange)="handlePaginationChange($event)" />
