@@ -15,7 +15,7 @@
                 }
               }
             </div>
-            <div class="toast-message">{{ toast.message }}</div>
+            <div data-test-id="toast-message" class="toast-message">{{ toast.message }}</div>
             <button 
               class="toast-close" 
               (click)="closeToast(toast.id)"

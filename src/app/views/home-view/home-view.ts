@@ -23,9 +23,18 @@ import {
 } from "../../components/table-paginator/paginator";
 import { Router, RouterLink } from "@angular/router";
 import { AppModal } from "../../components/app-modal/app-modal";
-import { catchError, of, startWith, Subject, switchMap, take } from "rxjs";
+import {
+  catchError,
+  finalize,
+  of,
+  startWith,
+  Subject,
+  switchMap,
+  take,
+} from "rxjs";
 import { AppButton } from "../../components/forms/app-button/app-button";
 import { ToasterService } from "../../shared/toaster/toaster";
+import { SkeletonTableRow } from "../../components/skeleton-table-row/skeleton-table-row";
 
 @Component({
   selector: "app-home-view",
@@ -37,6 +46,7 @@ import { ToasterService } from "../../shared/toaster/toaster";
     RouterLink,
     AppModal,
     AppButton,
+    SkeletonTableRow,
   ],
   templateUrl: "./home-view.html",
   styleUrl: "./home-view.scss",
@@ -51,6 +61,9 @@ export class HomeViewComponent {
   faEdit = faEdit;
   faTrash = faTrash;
 
+  isLoading = signal(false);
+  skeletonArray = Array(5).fill(0);
+
   private productService = inject(ProductService);
   private router = inject(Router);
   private toasterService = inject(ToasterService);
@@ -59,12 +72,17 @@ export class HomeViewComponent {
   products = toSignal(
     this.refreshProductFetch$.pipe(
       startWith(null),
-      switchMap(() => this.productService.getProducts()),
-      catchError(() => {
-        this.toasterService.showError(
-          "Un error a ocurrido a la hora de cargar los productos",
+      switchMap(() => {
+        this.isLoading.set(true);
+        return this.productService.getProducts().pipe(
+          catchError(() => {
+            this.toasterService.showError(
+              "Un error a ocurrido a la hora de cargar los productos",
+            );
+            return of([]);
+          }),
+          finalize(() => this.isLoading.set(false)),
         );
-        return of([]);
       }),
     ),
     { initialValue: [] },
@@ -149,15 +167,21 @@ export class HomeViewComponent {
       console.warn("ID not found in product to delete");
     }
     this.isModalOpen.set(false);
+    this.isLoading.set(true);
     this.productService.deleteProduct(this.productToDelete()?.id as string)
       .pipe(take(1)).subscribe({
         next: () => {
-          this.toasterService.showSuccess("El producto ha sido eliminado con exito")
+          this.toasterService.showSuccess(
+            "El producto ha sido eliminado con exito",
+          );
           this.refreshProductFetch$.next();
         },
         error: () => {
-          this.toasterService.showError("Hubo un problema a la hora de eliminar el producto")
-        }
+          this.toasterService.showError(
+            "Hubo un problema a la hora de eliminar el producto",
+          );
+          this.isLoading.set(false);
+        },
       });
   }
 
